@@ -80,6 +80,10 @@ http://localhost:3000/v1/docs
 - CRUD User, Skills, Certificate, Projects, Experience
 - Upload Image
 
+## Screenshots
+
+![Swagger](public/images/screencapture-localhost-3000-v1-docs-2023-06-02-15_36_42.png)
+
 ## Authors
 
 - [@syahrulakbar](https://github.com/syahrulakbar)
