@@ -40,24 +40,8 @@ const isAuth = async (req, res, next) => {
     const user = await User.findByPk(id || userId);
     if (!user) return res.status(404).json({ message: "User Not Found" });
     if (user.email === email || ADMIN.includes(email)) return next();
-    res.sendStatus(403);
-  } catch (error) {
-    console.error(error);
-    res.send(500).json({
-      message: error?.message,
-    });
-  }
-};
-const isAdmin = async (req, res, next) => {
-  try {
-    const user = await User.findOne({
-      where: {
-        email: req.email,
-      },
-    });
-    if (!user) return res.status(404).json({ message: "User Not Found" });
-    if (ADMIN.includes(req.email)) {
-      return next();
+    if (req.file?.filename) {
+      removeImage(req.file?.filename);
     }
     res.sendStatus(403);
   } catch (error) {
@@ -66,6 +50,12 @@ const isAdmin = async (req, res, next) => {
       message: error?.message,
     });
   }
+};
+const isAdmin = (req, res, next) => {
+  if (ADMIN.includes(req.email)) {
+    return next();
+  }
+  res.sendStatus(403);
 };
 const verifyUser = {
   checkDuplicateEmail,

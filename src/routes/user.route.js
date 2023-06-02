@@ -328,7 +328,7 @@ module.exports = function (app) {
    *                  description: Application error.
    *                  example: Failed to update. Please check application log.
    */
-  app.patch("/v1/users/:id", verifyToken, upload.single("picture"), verifyUser.checkDuplicateEmail, userController.updateUser);
+  app.patch("/v1/users/:id", verifyToken, verifyUser.isAuth, upload.single("picture"), verifyUser.checkDuplicateEmail, userController.updateUser);
 
   /**
    * @swagger

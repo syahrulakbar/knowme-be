@@ -11,6 +11,7 @@ exports.verifyToken = (req, res, next) => {
       return res.sendStatus(403);
     }
     req.email = decode.email;
+    req.userId = decode.id;
     next();
   });
 };

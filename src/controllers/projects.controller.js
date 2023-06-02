@@ -42,7 +42,11 @@ exports.getAllProjects = async (req, res) => {
 exports.getProjectById = async (req, res) => {
   const id = req.params.id;
   try {
-    const project = await Projects.findByPk(id);
+    const project = await Projects.findAll({
+      where: {
+        userId: id,
+      },
+    });
     if (project) {
       return res.status(200).json({
         message: "success get Project",
@@ -103,10 +107,10 @@ exports.updateProject = async (req, res) => {
   const id = req.params.id;
   const pictureProject = req.file?.filename;
   try {
-    const skill = await Projects.findByPk(id);
-    if (skill) {
+    const project = await Projects.findByPk(id);
+    if (project) {
       if (pictureProject) {
-        removeImage(skill.pictureProject);
+        removeImage(project.pictureProject);
       }
       await Projects.update(req.body, { where: { id } });
       return res.status(200).json({

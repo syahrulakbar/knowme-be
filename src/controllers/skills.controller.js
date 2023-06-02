@@ -2,6 +2,7 @@ const db = require("../models");
 const Skills = db.skills;
 
 exports.createSkill = async (req, res) => {
+  if (req.userId !== req.body.userId) return res.sendStatus(403);
   try {
     const response = await Skills.create(req.body);
     res.status(200).json({
@@ -36,6 +37,7 @@ exports.getSkillById = async (req, res) => {
   try {
     const skill = await Skills.findByPk(id);
     if (skill) {
+      if (req.userId !== skill.userId) return res.sendStatus(403);
       return res.status(200).json({
         message: "success get skill",
         data: skill,
@@ -57,6 +59,7 @@ exports.deleteSkill = async (req, res) => {
   try {
     const skill = await Skills.findByPk(id);
     if (skill) {
+      if (req.userId !== skill.userId) return res.sendStatus(403);
       await Skills.destroy({ where: { id } });
       return res.status(200).json({
         message: "success delete skills",
@@ -91,6 +94,7 @@ exports.updateSkill = async (req, res) => {
   try {
     const skill = await Skills.findByPk(id);
     if (skill) {
+      if (req.userId !== skill.userId) return res.sendStatus(403);
       await Skills.update(req.body, { where: { id } });
       return res.status(200).json({
         message: "success update skill",

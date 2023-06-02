@@ -15,7 +15,7 @@ POST http://localhost:3000/v1/users/login
 Content-Type: application/json
 
 {
-    "email":"07tav2@gmsail.com",
+    "email":"example@example.com",
     "password":"123456"
 }
 
@@ -36,7 +36,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2YTkyYzk2L
 # Get Data User By Id
 ###
 GET http://localhost:3000/v1/users/487d0de1-9578-452b-adda-e9744ba1940a
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ4N2QwZGUxLTk1NzgtNDUyYi1hZGRhLWU5NzQ0YmExOTQwYSIsIm5hbWUiOiJNb2NoYW1hZCBTeWFocnVsIEFrYmFyIiwiZW1haWwiOiIwN3RhdjJAZ21zYWlsLmNvbSIsImlhdCI6MTY4NTcwNzIyOSwiZXhwIjoxNjg1NzA4MTI5fQ.srCaprYs0iBhFRnALXpcZ_9nOK5Hcf1SmC-Wc0UpzKQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2YTkyYzk2LTdkOTktNDI5Mi1iYTg4LWYxNTUzMjgwNTllMyIsIm5hbWUiOiJ1cGRhdGUgY29iYSIsImVtYWlsIjoiMDd0YXYyYWtiYXJAZ21haWwuY29tIiwiaWF0IjoxNjg1NzA3MjA4LCJleHAiOjE2ODU3MDgxMDh9.JvNCj4waC33aqvHBDwQRPG8esIfIoBBHmR9taXe7f9Y
 
 # Get New Access Token
 ###
