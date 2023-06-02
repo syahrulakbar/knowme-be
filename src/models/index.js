@@ -9,6 +9,9 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// testing admin
+db.ADMIN = ["07tav2akbar@gmail.com"];
+
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.experience = require("../models/experience.model.js")(sequelize, Sequelize);
 db.projects = require("../models/projects.model.js")(sequelize, Sequelize);

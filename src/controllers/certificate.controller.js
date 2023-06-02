@@ -2,11 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const db = require("../models");
 const Certificate = db.certificate;
-
-const removeImage = (filePath) => {
-  filePath = path.join(__dirname, "../../public/images", filePath);
-  return fs.unlink(filePath, (err) => console.log(err || "Success Remove Image"));
-};
+const { removeImage } = require("../utils/imageUtils.js");
 
 exports.createCertificate = async (req, res) => {
   const pictureCompany = req.file?.filename;

@@ -1,12 +1,9 @@
 const db = require("../models");
 const fs = require("fs");
 const path = require("path");
-const User = db.user;
+const { user: User, ADMIN } = db;
+const { removeImage } = require("../utils/imageUtils.js");
 
-const removeImage = (filePath) => {
-  filePath = path.join(__dirname, "../../public/images", filePath);
-  return fs.unlink(filePath, (err) => console.log(err || "Success Remove Image"));
-};
 const checkDuplicateEmail = async (req, res, next) => {
   if (!req.body.email) return next();
   try {
@@ -35,6 +32,22 @@ const checkDuplicateEmail = async (req, res, next) => {
   }
 };
 
+const isAuth = async (req, res, next) => {
+  const id = req.params.id;
+  const userId = req.body.userId;
+  const email = req.email;
+  try {
+    const user = await User.findByPk(id || userId);
+    if (!user) return res.status(404).json({ message: "User Not Found" });
+    if (user.email === email || ADMIN.includes(email)) return next();
+    res.sendStatus(403);
+  } catch (error) {
+    console.error(error);
+    res.send(500).json({
+      message: error?.message,
+    });
+  }
+};
 const isAdmin = async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -43,7 +56,7 @@ const isAdmin = async (req, res, next) => {
       },
     });
     if (!user) return res.status(404).json({ message: "User Not Found" });
-    if (user.email === "07tav2akbar@gmail.com") {
+    if (ADMIN.includes(req.email)) {
       return next();
     }
     res.sendStatus(403);
@@ -57,5 +70,6 @@ const isAdmin = async (req, res, next) => {
 const verifyUser = {
   checkDuplicateEmail,
   isAdmin,
+  isAuth,
 };
 module.exports = verifyUser;

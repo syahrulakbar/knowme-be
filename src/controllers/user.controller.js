@@ -1,15 +1,9 @@
-const fs = require("fs");
-const path = require("path");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("../models");
 const { Op } = require("sequelize");
-const { user: User, skills: Skills, projects: Projects, certificate: Certificate, experience: Experience } = db;
-
-const removeImage = (filePath) => {
-  filePath = path.join(__dirname, "../../public/images", filePath);
-  return fs.unlink(filePath, (err) => console.log(err || "Success Remove Image"));
-};
+const db = require("../models");
+const { removeImage } = require("../utils/imageUtils.js");
+const { user: User, skills: Skills, projects: Projects, certificate: Certificate, experience: Experience, ADMIN } = db;
 
 exports.createUser = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
@@ -19,7 +13,7 @@ exports.createUser = async (req, res) => {
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(password, salt);
   try {
-    const response = await User.create({
+    await User.create({
       name,
       email,
       password: hashPassword,
@@ -108,8 +102,6 @@ exports.logout = async (req, res) => {
 };
 exports.getUser = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) return res.sendStatus(401);
     if (req.query?.name) {
       const users = await User.findAll({
         where: {
@@ -149,7 +141,6 @@ exports.getUser = async (req, res) => {
 exports.refreshToken = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) return res.sendStatus(401);
     const user = await User.findOne({
       where: {
         refresh_token: refreshToken,
@@ -173,10 +164,8 @@ exports.refreshToken = async (req, res) => {
 };
 
 exports.getDataById = async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-  const userId = req.params.id;
-  if (!refreshToken) return res.sendStatus(401);
   try {
+    const userId = req.params.id;
     const user = await User.findByPk(userId);
     if (user) {
       const experience = await Experience.findAll({ where: { userId } });
@@ -206,14 +195,12 @@ exports.getDataById = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) return res.sendStatus(401);
   const userId = req.params.id;
   try {
     const user = await User.findByPk(userId);
     if (user) {
-      if (user.email === "07tav2akbar@gmail.com") {
-        return res.status(403).json({ message: "You are not allowed to delete your own account" });
+      if (ADMIN.includes(user.email)) {
+        return res.status(403).json({ message: "Cannot delete admin account" });
       }
       if (user.picture) {
         removeImage(user.picture);
@@ -235,13 +222,11 @@ exports.deleteUser = async (req, res) => {
   }
 };
 exports.deleteAllUsers = async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) return res.sendStatus(401);
   try {
     const users = await User.findAll({
       where: {
         email: {
-          [Op.notIn]: ["07tav2akbar@gmail.com"],
+          [Op.notIn]: ADMIN,
         },
       },
     });
@@ -253,7 +238,7 @@ exports.deleteAllUsers = async (req, res) => {
     await User.destroy({
       where: {
         email: {
-          [Op.notIn]: ["07tav2akbar@gmail.com"],
+          [Op.notIn]: ADMIN,
         },
       },
     });
@@ -269,7 +254,6 @@ exports.deleteAllUsers = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
   const userId = req.params.id;
   const picture = req.file?.filename;
   if (req.fileValidationError) {
@@ -277,8 +261,6 @@ exports.updateUser = async (req, res) => {
       message: req.fileValidationError,
     });
   }
-  if (!refreshToken) return res.sendStatus(401);
-
   try {
     const user = await User.findByPk(userId);
     if (user) {

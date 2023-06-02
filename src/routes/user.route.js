@@ -436,7 +436,7 @@ module.exports = function (app) {
    *                  description: Application error.
    *                  example: Failed to update. Please check application log.
    */
-  app.get("/v1/users", verifyToken, userController.getUser);
+  app.get("/v1/users", verifyToken, verifyUser.isAdmin, userController.getUser);
 
   /**
    * @swagger
@@ -587,7 +587,7 @@ module.exports = function (app) {
    *                  description: Application error.
    *                  example: Failed to update. Please check application log.
    */
-  app.get("/v1/users/:id", verifyToken, userController.getDataById);
+  app.get("/v1/users/:id", verifyToken, verifyUser.isAuth, userController.getDataById);
 
   /**
    * @swagger

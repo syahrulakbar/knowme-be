@@ -2,11 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const db = require("../models");
 const Projects = db.projects;
-
-const removeImage = (filePath) => {
-  filePath = path.join(__dirname, "../../public/images", filePath);
-  return fs.unlink(filePath, (err) => console.log(err || "Success Remove Image"));
-};
+const { removeImage } = require("../utils/imageUtils.js");
 
 exports.createProject = async (req, res) => {
   const pictureProject = req.file?.filename;
