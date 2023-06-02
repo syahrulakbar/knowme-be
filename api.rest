@@ -1,0 +1,38 @@
+# Register
+POST http://localhost:3000/v1/users
+Content-Type: application/json
+
+{
+    "name":"johndoe",
+    "email":"example@example.com",
+    "password":"123456",
+    "confirmPassword":"123456"
+}
+
+# Login
+###
+POST http://localhost:3000/v1/users/login
+Content-Type: application/json
+
+{
+    "email":"07tav2akbar@gmail.com",
+    "password":"123456"
+}
+
+# Get Data Users
+###
+GET http://localhost:3000/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2YTkyYzk2LTdkOTktNDI5Mi1iYTg4LWYxNTUzMjgwNTllMyIsIm5hbWUiOiJNb2NoYW1hZCBTeWFocnVsIEFrYmFyIiwiZW1haWwiOiIwN3RhdjJha2JhckBnbWFpbC5jb20iLCJpYXQiOjE2ODU2ODk0MDksImV4cCI6MTY4NTY5MDMwOX0.knlso0vBr4gu4IO083OSWAc5zYD7vfejRK2d0PCY3wk
+
+# Get Data User By Id
+###
+GET http://localhost:3000/v1/users/487d0de1-9578-452b-adda-e9744ba1940a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2YTkyYzk2LTdkOTktNDI5Mi1iYTg4LWYxNTUzMjgwNTllMyIsIm5hbWUiOiJNb2NoYW1hZCBTeWFocnVsIEFrYmFyIiwiZW1haWwiOiIwN3RhdjJha2JhckBnbWFpbC5jb20iLCJpYXQiOjE2ODU2OTA4NjUsImV4cCI6MTY4NTY5MTc2NX0.kU41KHguGGqrow7lqcZCmsZnT1a0Sc6_VIZ9hYkM9gM
+
+# Get New Access Token
+###
+GET http://localhost:3000/v1/users/token
+
+# Logout
+###
+DELETE http://localhost:3000/v1/users/logout

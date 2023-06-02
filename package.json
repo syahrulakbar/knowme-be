@@ -1,0 +1,43 @@
+{
+  "name": "knowme-backend",
+  "version": "1.0.0",
+  "description": "Know Me Restful API",
+  "main": "./src/server.js",
+  "scripts": {
+    "migrate:new": "npx sequelize-cli migration:generate --name try-migrate --migrations-path src/migrations",
+    "migrate": "sequelize db:migrate --migrations-path src/migrations",
+    "migrate:undo": "sequelize db:migrate:undo --migrations-path src/migrations",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server.js",
+    "devStart": "nodemon ./src/server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "sequelize",
+    "express",
+    "mysql"
+  ],
+  "author": {
+    "name": "Mochamad Syahrul Akbar",
+    "email": "07tav2akbar@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.3.3",
+    "sequelize": "^6.31.1",
+    "sequelize-cli": "^6.6.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
