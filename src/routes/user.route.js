@@ -1,11 +1,7 @@
 const { userController } = require("../controllers");
 const { verifyToken, upload, verifyUser } = require("../middlewares");
 module.exports = function (app) {
-  app.get("/", (req, res) => {
-    res.redirect(301, "/v1/docs");
-  });
   app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
     next();
   });
 
@@ -86,7 +82,7 @@ module.exports = function (app) {
 
   /**
    * @swagger
-   * /v1/users:
+   * /v1/users/register:
    *   post:
    *     tags:
    *       - User Management
@@ -161,7 +157,7 @@ module.exports = function (app) {
    *                  description: Application error.
    *                  example: Failed to register. Please check application log.
    */
-  app.post("/v1/users", verifyUser.checkDuplicateEmail, userController.createUser);
+  app.post("/v1/users/register", verifyUser.checkDuplicateEmail, userController.createUser);
 
   /**
    * @swagger

@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken = req.cookies?.refreshToken;
     if (!refreshToken) return res.sendStatus(204);
     const user = await User.findOne({
       where: {
@@ -141,6 +141,7 @@ exports.getUser = async (req, res) => {
 exports.refreshToken = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.sendStatus(403);
     const user = await User.findOne({
       where: {
         refresh_token: refreshToken,
@@ -166,7 +167,9 @@ exports.refreshToken = async (req, res) => {
 exports.getDataById = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ["password", "refresh_token"] },
+    });
     if (user) {
       const experience = await Experience.findAll({ where: { userId } });
       const skills = await Skills.findAll({ where: { userId } });

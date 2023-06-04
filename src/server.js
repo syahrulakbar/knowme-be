@@ -9,13 +9,13 @@ const swaggerUi = require("swagger-ui-express");
 const { swaggerSpec } = require("./utils/swagger.js");
 
 const app = express();
-const corsPORT = process.env.CORS_PORT || "3001";
-const corsHOST = process.env.CORS_HOST || "http://localhost:";
+const corsPORT = process.env.CORS_PORT;
 const corsOptions = {
-  origin: `${corsHOST + corsPORT}`,
+  origin: `http://localhost:${corsPORT}`,
+  credentials: true,
 };
-app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/assets", express.static("public/images"));

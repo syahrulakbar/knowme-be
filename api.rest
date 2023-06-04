@@ -1,10 +1,10 @@
 # Register
-POST http://localhost:3000/v1/users
+POST http://localhost:3000/v1/users/register
 Content-Type: application/json
 
 {
     "name":"johndoe",
-    "email":"example@example.com",
+    "email":"07tav2akbar@gmail.com",
     "password":"123456",
     "confirmPassword":"123456"
 }
@@ -31,7 +31,7 @@ Content-Type: application/json
 # Get Data Users
 ###
 GET http://localhost:3000/v1/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NjMzNzFiLTBhYWYtNGNkMC1iNTE1LWQxNjg0OGIwZDA0YyIsIm5hbWUiOiJqb2huZG9lIiwiZW1haWwiOiJleGFtcGxlQGV4YW1wbGUuY29tIiwiaWF0IjoxNjg1NzA5NDYyLCJleHAiOjE2ODU3MTAzNjJ9.KWMqCfoFbzE_ukjZU1o8gFF2OjCpShPX9mOYs1ZN1lg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwOTYwYTE2LTdmYzEtNDEyNC1iZmE3LWUxNGFmMjRiZWI0YSIsIm5hbWUiOiJqb2huZG9lIiwiZW1haWwiOiIwN3RhdjJha2JhckBnbWFpbC5jb20iLCJpYXQiOjE2ODU4NzMwNDQsImV4cCI6MTY4NTg3Mzk0NH0.ZNzmlGcugKAu2iFrQ0G5__QqeTmQblHCsTEM9NWcV_A
 
 # Get Data User By Id
 ###
