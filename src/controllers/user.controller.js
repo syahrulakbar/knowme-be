@@ -175,8 +175,16 @@ exports.getDataById = async (req, res) => {
       const skills = await Skills.findAll({ where: { userId } });
       const projects = await Projects.findAll({ where: { userId } });
       const certificate = await Certificate.findAll({ where: { userId } });
+      const { name, email, role, about, picture, sosialMedia } = user;
       const data = {
-        user,
+        user: {
+          name,
+          email,
+          role,
+          about,
+          sosialMedia: JSON.parse(sosialMedia),
+          picture,
+        },
         experience,
         skills,
         projects,
@@ -257,6 +265,7 @@ exports.deleteAllUsers = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
+  const { name, email, role, about, sosialMedia } = req.body;
   const userId = req.params.id;
   const picture = req.file?.filename;
   if (req.fileValidationError) {
@@ -273,7 +282,14 @@ exports.updateUser = async (req, res) => {
         }
       }
       await User.update(
-        { ...req.body, picture },
+        {
+          name,
+          email,
+          role,
+          about,
+          sosialMedia: sosialMedia,
+          picture,
+        },
         {
           where: { id: userId },
         }
