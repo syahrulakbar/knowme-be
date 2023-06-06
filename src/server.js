@@ -25,7 +25,7 @@ require("./routes")(app);
 
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
-    return res.status(413).json({ message: error.message });
+    return res.status(413).json({ message: "Image size too large" });
   }
   const status = error.errorStatus || 500;
   const message = error.message || "Internal Server Error";
