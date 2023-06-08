@@ -7,6 +7,7 @@ module.exports = function (app) {
   });
   app.post("/v1/experience", verifyToken, experienceController.createExperience);
   app.get("/v1/experience", verifyToken, verifyUser.isAdmin, experienceController.getAllExperience);
+  app.get("/v1/experience/user/:userId", experienceController.getAllExperienceByUserId);
   app.get("/v1/experience/:id", verifyToken, experienceController.getExperienceById);
   app.delete("/v1/experience/:id", verifyToken, experienceController.deleteExperience);
   app.delete("/v1/experience", verifyToken, verifyUser.isAdmin, experienceController.deleteAllExperience);

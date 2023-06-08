@@ -29,6 +29,26 @@ exports.getAllExperience = async (req, res) => {
     });
   }
 };
+exports.getAllExperienceByUserId = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const response = await Experience.findAll({
+      where: {
+        userId,
+      },
+      order: [["createdAt", "DESC"]],
+    });
+    res.status(200).json({
+      message: "success get experience",
+      data: response,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: error?.message,
+    });
+  }
+};
 
 exports.getExperienceById = async (req, res) => {
   const id = req.params.id;
@@ -36,7 +56,7 @@ exports.getExperienceById = async (req, res) => {
     const experience = await Experience.findByPk(id);
     if (experience) {
       return res.status(200).json({
-        message: "success get Experience",
+        message: "success get Experience by id",
         data: experience,
       });
     } else {
