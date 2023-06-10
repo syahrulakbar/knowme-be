@@ -8,13 +8,13 @@
     "migrate": "sequelize db:migrate --migrations-path src/migrations",
     "migrate:undo": "sequelize db:migrate:undo --migrations-path src/migrations",
     "start": "node ./src/server.js",
-    "devStart": "set NODE_ENV=development&& npx sequelize-cli db:drop --env=development&& npx sequelize-cli db:create --env=development && nodemon ./src/server.js"
+    "devStart": "cross-env NODE_ENV=development&& npx sequelize-cli db:drop --env=development&& npx sequelize-cli db:create --env=development&& nodemon ./src/server.js"
   },
   "keywords": [
     "nodejs",
     "sequelize",
     "express",
-    "mysql"
+    "postgresql"
   ],
   "author": {
     "name": "Mochamad Syahrul Akbar",
@@ -37,6 +37,7 @@
     "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.22"
   }
 }

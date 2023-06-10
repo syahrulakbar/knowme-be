@@ -1,5 +1,6 @@
 const { development, test, production } = require("./config.js");
 const env = process.env.NODE_ENV || "development";
+
 let config = {
   pool: {
     max: 5,
