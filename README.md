@@ -71,7 +71,7 @@ http://localhost:3000/v1/docs
 
 ## Tech Stack
 
-**Backend:** Node, Express, Mysql, Sequelize, JWT, Multer
+**Backend:** Node, Express, Postgres, Sequelize, JWT, Multer
 
 ## Features
 
