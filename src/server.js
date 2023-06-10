@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const dbSync = require("./utils/dbsync.js");
 const db = require("./models");
 const multer = require("multer");
 const bodyParser = require("body-parser");
@@ -36,7 +37,7 @@ app.use((error, req, res, next) => {
 
 const startServer = async () => {
   try {
-    await db.sequelize.sync();
+    await dbSync();
     console.info("Database Connected");
     app.listen(3000, () => {
       console.info("http://localhost:3000");

@@ -7,9 +7,8 @@
     "migrate:new": "npx sequelize-cli migration:generate --name try-migrate --migrations-path src/migrations",
     "migrate": "sequelize db:migrate --migrations-path src/migrations",
     "migrate:undo": "sequelize db:migrate:undo --migrations-path src/migrations",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
-    "devStart": "nodemon ./src/server.js"
+    "devStart": "set NODE_ENV=development&& npx sequelize-cli db:drop --env=development&& npx sequelize-cli db:create --env=development && nodemon ./src/server.js"
   },
   "keywords": [
     "nodejs",
@@ -31,7 +30,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.3.3",
+    "pg": "^8.11.0",
     "sequelize": "^6.31.1",
     "sequelize-cli": "^6.6.0",
     "swagger-jsdoc": "^6.2.8",
