@@ -6,17 +6,17 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    nameSkills: {
+    categorySkills: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    fieldSkills: {
+    detailSkills: {
       type: Sequelize.STRING,
       allowNull: false,
-    },
-    level: {
-      type: Sequelize.STRING,
-      allowNull: false,
+      get() {
+        const value = this.getDataValue("detailSkills");
+        return JSON.parse(value);
+      },
     },
   });
   return Skills;

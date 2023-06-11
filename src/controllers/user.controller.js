@@ -172,19 +172,11 @@ exports.getDataById = async (req, res) => {
     });
     if (user) {
       const experience = await Experience.findAll({ where: { userId } });
-      const skills = await Skills.findAll({ where: { userId } });
-      const projects = await Projects.findAll({ where: { userId } });
+      const skills = await Skills.findAll({ where: { userId }, order: [["createdAt", "DESC"]] });
+      const projects = await Projects.findAll({ where: { userId }, order: [["createdAt", "DESC"]] });
       const certificate = await Certificate.findAll({ where: { userId } });
-      const { name, email, role, about, picture, sosialMedia } = user;
       const data = {
-        user: {
-          name,
-          email,
-          role,
-          about,
-          sosialMedia: JSON.parse(sosialMedia),
-          picture,
-        },
+        user,
         experience,
         skills,
         projects,

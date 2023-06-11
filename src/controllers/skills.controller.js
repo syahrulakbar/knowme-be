@@ -3,6 +3,7 @@ const Skills = db.skills;
 
 exports.createSkill = async (req, res) => {
   if (req.userId !== req.body.userId) return res.sendStatus(403);
+
   try {
     const response = await Skills.create(req.body);
     res.status(200).json({

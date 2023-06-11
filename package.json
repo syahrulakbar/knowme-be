@@ -4,11 +4,12 @@
   "description": "Know Me Restful API",
   "main": "./src/server.js",
   "scripts": {
-    "migrate:new": "npx sequelize-cli migration:generate --name try-migrate --migrations-path src/migrations",
+    "migrate:new": "npx sequelize-cli migration:generate --name change-model-skills --migrations-path src/migrations",
     "migrate": "sequelize db:migrate --migrations-path src/migrations",
     "migrate:undo": "sequelize db:migrate:undo --migrations-path src/migrations",
     "start": "node ./src/server.js",
-    "devStart": "cross-env NODE_ENV=development&& npx sequelize-cli db:drop --env=development&& npx sequelize-cli db:create --env=development&& nodemon ./src/server.js"
+    "devStart": "cross-env NODE_ENV=development nodemon ./src/server.js",
+    "dev-resync": "npx sequelize-cli db:drop --env=development && npx sequelize-cli db:create --env=development && cross-env NODE_ENV=dev-resync nodemon ./src/server.js"
   },
   "keywords": [
     "nodejs",
@@ -26,6 +27,7 @@
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
@@ -37,7 +39,6 @@
     "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "nodemon": "^2.0.22"
   }
 }

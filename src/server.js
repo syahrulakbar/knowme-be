@@ -37,7 +37,11 @@ app.use((error, req, res, next) => {
 
 const startServer = async () => {
   try {
-    await dbSync();
+    if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
+      await db.sequelize.sync();
+    } else {
+      await dbSync();
+    }
     console.info("Database Connected");
     app.listen(3000, () => {
       console.info("http://localhost:3000");

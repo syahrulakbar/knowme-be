@@ -549,28 +549,6 @@ module.exports = function (app) {
    *                  type: string
    *                  description: Result message.
    *                  example: User not found
-   *       401:
-   *         description: No Refresh Token in Cookie
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                message:
-   *                  type: string
-   *                  description: Result message.
-   *                  example: No refresh token found in cookie
-   *       403:
-   *         description: Forbidden
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                message:
-   *                  type: string
-   *                  description: Result message.
-   *                  example: Forbidden
    *       500:
    *         description: Application error.
    *         content:
@@ -583,7 +561,7 @@ module.exports = function (app) {
    *                  description: Application error.
    *                  example: Failed to update. Please check application log.
    */
-  app.get("/v1/users/:id", verifyToken, verifyUser.isAuth, userController.getDataById);
+  app.get("/v1/users/:id", userController.getDataById);
 
   /**
    * @swagger

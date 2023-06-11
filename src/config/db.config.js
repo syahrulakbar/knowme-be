@@ -14,7 +14,7 @@ if (env === "production") {
     ...config,
     ...production,
   };
-} else if (env === "development") {
+} else if (env === "development" || env === "dev-resync") {
   config = {
     ...config,
     ...development,

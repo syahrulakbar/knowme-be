@@ -33,6 +33,10 @@ module.exports = (sequelize, Sequelize) => {
     sosialMedia: {
       type: Sequelize.STRING,
       allowNull: true,
+      get() {
+        const value = this.getDataValue("sosialMedia");
+        return JSON.parse(value);
+      },
     },
     picture: {
       type: Sequelize.STRING,
