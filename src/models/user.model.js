@@ -35,7 +35,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: true,
       get() {
         const value = this.getDataValue("sosialMedia");
-        return JSON.parse(value);
+        return value ? JSON.parse(value) : null;
       },
     },
     picture: {

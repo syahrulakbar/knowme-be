@@ -174,7 +174,7 @@ exports.getDataById = async (req, res) => {
       const experience = await Experience.findAll({ where: { userId } });
       const skills = await Skills.findAll({ where: { userId }, order: [["createdAt", "DESC"]] });
       const projects = await Projects.findAll({ where: { userId }, order: [["createdAt", "DESC"]] });
-      const certificate = await Certificate.findAll({ where: { userId } });
+      const certificate = await Certificate.findAll({ where: { userId }, order: [["issueDate", "DESC"]] });
       const data = {
         user,
         experience,
@@ -257,7 +257,6 @@ exports.deleteAllUsers = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const { name, email, role, about, sosialMedia } = req.body;
   const userId = req.params.id;
   const picture = req.file?.filename;
   if (req.fileValidationError) {
@@ -273,19 +272,9 @@ exports.updateUser = async (req, res) => {
           removeImage(user.picture);
         }
       }
-      await User.update(
-        {
-          name,
-          email,
-          role,
-          about,
-          sosialMedia: sosialMedia,
-          picture,
-        },
-        {
-          where: { id: userId },
-        }
-      );
+      await User.update(req.body, {
+        where: { id: userId },
+      });
       res.status(200).json({
         message: "Success Update User",
       });

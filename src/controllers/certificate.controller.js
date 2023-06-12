@@ -5,14 +5,13 @@ const Certificate = db.certificate;
 const { removeImage } = require("../utils/imageUtils.js");
 
 exports.createCertificate = async (req, res) => {
-  const pictureCompany = req.file?.filename;
   if (req.fileValidationError) {
     return res.status(400).json({
       message: req.fileValidationError,
     });
   }
   try {
-    const response = await Certificate.create({ ...req.body, pictureCompany });
+    const response = await Certificate.create(req.body);
     res.status(200).json({
       message: "Success Create Certificate",
       data: response,
@@ -61,11 +60,10 @@ exports.getCertificateById = async (req, res) => {
   }
 };
 exports.deleteCertificate = async (req, res) => {
-  const id = req.params.id;
+  const id = req?.params?.id;
   try {
     const certificate = await Certificate.findByPk(id);
     if (certificate) {
-      removeImage(certificate?.pictureCompany);
       await Certificate.destroy({ where: { id } });
       return res.status(200).json({
         message: "success delete certificate",
@@ -85,9 +83,6 @@ exports.deleteCertificate = async (req, res) => {
 exports.deleteAllCertificate = async (req, res) => {
   try {
     const certificates = await Certificate.findAll();
-    for (let certi in certificates) {
-      removeImage(certificates[certi]?.pictureCompany);
-    }
     await Certificate.destroy({ where: {}, truncate: true });
     return res.status(200).json({
       message: "success delete all certificate",
@@ -100,20 +95,11 @@ exports.deleteAllCertificate = async (req, res) => {
   }
 };
 exports.updateCertificate = async (req, res) => {
-  const pictureCompany = req.file?.filename;
   const id = req.params.id;
-  if (req.fileValidationError) {
-    return res.status(400).json({
-      message: req.fileValidationError,
-    });
-  }
   try {
     const skill = await Certificate.findByPk(id);
     if (skill) {
-      if (pictureCompany) {
-        removeImage(skill.pictureCompany);
-      }
-      await Certificate.update({ ...req.body, pictureCompany }, { where: { id } });
+      await Certificate.update(req.body, { where: { id } });
       return res.status(200).json({
         message: "success update certificate",
       });

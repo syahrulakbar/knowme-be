@@ -6,25 +6,24 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    pictureCompany: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     companyName: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     issueDate: {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: Sequelize.DATE,
+      allowNull: true,
     },
     urlCertificate: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    credential: {
+      type: Sequelize.STRING,
     },
   });
   return Certificate;
