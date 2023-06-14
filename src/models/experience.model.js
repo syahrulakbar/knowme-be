@@ -14,9 +14,15 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    duration: {
-      type: Sequelize.STRING,
-      allowNull: false,
+    isStillWorking: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
+    startDate: {
+      type: Sequelize.DATE,
+    },
+    endDate: {
+      type: Sequelize.DATE,
     },
     jobDescription: {
       type: Sequelize.STRING,

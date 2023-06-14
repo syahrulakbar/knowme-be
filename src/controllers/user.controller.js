@@ -171,7 +171,13 @@ exports.getDataById = async (req, res) => {
       attributes: { exclude: ["password", "refresh_token"] },
     });
     if (user) {
-      const experience = await Experience.findAll({ where: { userId } });
+      const experience = await Experience.findAll({
+        where: { userId },
+        order: [
+          ["startDate", "DESC"],
+          ["endDate", "DESC"],
+        ],
+      });
       const skills = await Skills.findAll({ where: { userId }, order: [["createdAt", "DESC"]] });
       const projects = await Projects.findAll({ where: { userId }, order: [["createdAt", "DESC"]] });
       const certificate = await Certificate.findAll({ where: { userId }, order: [["issueDate", "DESC"]] });

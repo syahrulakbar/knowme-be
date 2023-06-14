@@ -36,7 +36,7 @@ exports.getAllExperienceByUserId = async (req, res) => {
       where: {
         userId,
       },
-      order: [["createdAt", "DESC"]],
+      order: [["startDate", "DESC"]],
     });
     res.status(200).json({
       message: "success get experience",
