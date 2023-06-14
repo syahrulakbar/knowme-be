@@ -10,10 +10,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    techStack: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     projectName: {
       type: Sequelize.STRING,
       allowNull: false,

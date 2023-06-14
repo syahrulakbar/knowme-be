@@ -42,11 +42,7 @@ exports.getAllProjects = async (req, res) => {
 exports.getProjectById = async (req, res) => {
   const id = req.params.id;
   try {
-    const project = await Projects.findAll({
-      where: {
-        userId: id,
-      },
-    });
+    const project = await Projects.findByPk(id);
     if (project) {
       return res.status(200).json({
         message: "success get Project",
@@ -112,7 +108,7 @@ exports.updateProject = async (req, res) => {
       if (pictureProject) {
         removeImage(project.pictureProject);
       }
-      await Projects.update(req.body, { where: { id } });
+      await Projects.update({ ...req.body, pictureProject }, { where: { id } });
       return res.status(200).json({
         message: "success update project",
       });

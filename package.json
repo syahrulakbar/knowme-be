@@ -4,7 +4,7 @@
   "description": "Know Me Restful API",
   "main": "./src/server.js",
   "scripts": {
-    "migrate:new": "npx sequelize-cli migration:generate --name change-column-users --migrations-path src/migrations",
+    "migrate:new": "npx sequelize-cli migration:generate --name change-table-projects --migrations-path src/migrations",
     "migrate": "sequelize db:migrate --migrations-path src/migrations",
     "migrate:undo": "sequelize db:migrate:undo --migrations-path src/migrations",
     "start": "node ./src/server.js",
